@@ -1,4 +1,3 @@
-/* Reset e Configurações Globais */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +12,6 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
 .header {
     background: linear-gradient(135deg, #2c3e50, #34495e);
     padding: 1rem 0;
@@ -43,6 +41,12 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+}
+
+.nav-menu li{
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-menu a {
@@ -88,7 +92,6 @@ body {
     margin: 2rem 0;
 }
 
-/* Botões */
 .btn {
     padding: 0.8rem 1.5rem;
     border: none;
@@ -137,7 +140,6 @@ body {
     background-color: #6c7b7d;
 }
 
-/* Formulários */
 .form-group {
     margin: 1rem 0;
 }
@@ -192,7 +194,6 @@ body {
     background-color: #3a3a3a;
 }
 
-/* Barra de Oxigênio */
 .oxygen-bar {
     width: 100%;
     height: 30px;
@@ -222,7 +223,6 @@ body {
     z-index: 1;
 }
 
-/* Página de Login */
 .login-container {
     min-height: 100vh;
     display: flex;
@@ -246,7 +246,6 @@ body {
     font-size: 2.5rem;
 }
 
-/* Página Home */
 .home-background {
     background: url('/images/space-station.jpg') center/cover no-repeat;
     background-attachment: fixed;
@@ -290,19 +289,29 @@ body {
 .dev-card {
     text-align: center;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
 }
 
 .dev-avatar {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    margin: 0 auto 1rem;
-    background-color: #555;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: #3498db;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .github-link {
@@ -315,7 +324,6 @@ body {
     text-decoration: underline;
 }
 
-/* Estação Card */
 .station-card {
     text-align: center;
     position: relative;
@@ -334,7 +342,7 @@ body {
     color: white;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -345,6 +353,7 @@ body {
         flex-direction: column;
         text-align: center;
         gap: 0.5rem;
+        align-items: center;
     }
 
     .card-grid {
@@ -364,7 +373,7 @@ body {
     }
 }
 
-/* Utilitários */
+
 .text-center {
     text-align: center;
 }

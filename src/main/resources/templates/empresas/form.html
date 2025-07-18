@@ -19,20 +19,20 @@
                 <div class="form-group">
                     <label for="name">Nome da Empresa:</label>
                     <input type="text" id="name" th:field="*{name}" class="form-control" 
-                           placeholder="Digite o nome da empresa" required>
+                            placeholder="Digite o nome da empresa" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="cnpj">CNPJ:</label>
                     <input type="text" id="cnpj" th:field="*{cnpj}" class="form-control" 
-                           placeholder="XX.XXX.XXX/XXXX-XX" required>
+                            placeholder="XX.XXX.XXX/XXXX-XX" required>
                     <small style="color: #7f8c8d;">Formato: XX.XXX.XXX/XXXX-XX</small>
                 </div>
                 
                 <div class="form-group">
                     <label for="employees">Número de Funcionários:</label>
                     <input type="number" id="employees" th:field="*{employees}" class="form-control" 
-                           min="1" placeholder="Digite o número de funcionários" required>
+                            min="1" placeholder="Digite o número de funcionários" required>
                 </div>
                 
                 <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
@@ -44,7 +44,6 @@
     </div>
     
     <script>
-        // Máscara para CNPJ
         document.getElementById('cnpj').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             value = value.replace(/^(\d{2})(\d)/, '$1.$2');
