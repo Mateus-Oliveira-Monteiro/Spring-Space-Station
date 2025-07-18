@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} ?: 'Estação Espacial'">Estação Espacial</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <nav class="navbar">
+            <a href="/home" class="logo">🚀 Estação Espacial</a>
+            <ul class="nav-menu">
+                <li><a th:href="@{/home}">Home</a></li>
+                <li><a th:href="@{/estacoes}">Estações</a></li>
+                <li><a th:href="@{/users}">Usuários</a></li>
+                <li><a th:href="@{/empresas}">Empresas</a></li>
+                <li><a th:href="@{/logout}" class="btn btn-danger">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main th:fragment="content">
+        <!-- Conteúdo específico da página será inserido aqui -->
+    </main>
+    
+    <script th:fragment="scripts">
+        <!-- Scripts específicos da página -->
+    </script>
+</body>
+</html>

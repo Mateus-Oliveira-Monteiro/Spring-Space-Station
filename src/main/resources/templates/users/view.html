@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Usuário: ' + ${user.name}">Detalhes do Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <div class="text-center mb-3">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #3498db; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 3rem; color: white;">
+                    👤
+                </div>
+                <h1 th:text="${user.name}">Nome do Usuário</h1>
+            </div>
+            
+            <div>
+                <h3>📋 Informações Pessoais</h3>
+                <p><strong>ID:</strong> <span th:text="${user.id}">1</span></p>
+                <p><strong>Nome:</strong> <span th:text="${user.name}">Nome</span></p>
+                <p><strong>Email:</strong> <span th:text="${user.email}">email@test.com</span></p>
+                <p><strong>Gênero:</strong> <span th:text="${user.gender}">Gênero</span></p>
+            </div>
+            
+            <div th:if="${user.address != null}" style="margin-top: 2rem;">
+                <h3>📍 Endereço</h3>
+                <p th:if="${user.address.street}"><strong>Rua:</strong> <span th:text="${user.address.street}">Rua</span></p>
+                <p th:if="${user.address.city}"><strong>Cidade:</strong> <span th:text="${user.address.city}">Cidade</span></p>
+                <p th:if="${user.address.state}"><strong>Estado:</strong> <span th:text="${user.address.state}">Estado</span></p>
+                <p th:if="${user.address.zipCode}"><strong>CEP:</strong> <span th:text="${user.address.zipCode}">CEP</span></p>
+                <p th:if="${user.address.country}"><strong>País:</strong> <span th:text="${user.address.country}">País</span></p>
+            </div>
+            
+            <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
+                <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-primary">✏️ Editar</a>
+                <a th:href="@{/users/{id}/delete(id=${user.id})}" 
+                   class="btn btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir este usuário?')">🗑️ Excluir</a>
+                <a href="/users" class="btn btn-secondary">↩️ Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

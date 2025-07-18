@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estações Espaciais</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="d-flex justify-center" style="justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>🚀 Estações Espaciais</h1>
+            <a href="/estacoes/new" class="btn btn-success">➕ Nova Estação</a>
+        </div>
+        
+        <div class="card-grid">
+            <div th:each="estacao : ${estacoes}" class="card station-card">
+                <div class="station-icon">
+                    🛰️
+                </div>
+                <h3 th:text="${estacao.name}">Nome da Estação</h3>
+                <p><strong>Oxigênio:</strong> <span th:text="${estacao.oxygen}">0</span>%</p>
+                <p><strong>Lançamento:</strong> <span th:text="${#temporals.format(estacao.launch, 'dd/MM/yyyy')}">Data</span></p>
+                <p><strong>Responsável:</strong> <span th:text="${estacao.user.name}">Usuário</span></p>
+                <p><strong>Empresa:</strong> <span th:text="${estacao.empresa.name}">Empresa</span></p>
+                
+                <div class="oxygen-bar">
+                    <div class="oxygen-fill" th:style="'width: ' + ${estacao.oxygen} + '%'"></div>
+                    <div class="oxygen-text" th:text="${estacao.oxygen} + '%'">0%</div>
+                </div>
+                
+                <div class="d-flex justify-center gap-1" style="margin-top: 1rem;">
+                    <a th:href="@{/estacoes/{id}(id=${estacao.id})}" class="btn btn-primary">👁️ Ver</a>
+                    <a th:href="@{/estacoes/{id}/edit(id=${estacao.id})}" class="btn btn-secondary">✏️ Editar</a>
+                    <a th:href="@{/estacoes/{id}/delete(id=${estacao.id})}" 
+                       class="btn btn-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir esta estação?')">🗑️ Excluir</a>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(estacoes)}" class="text-center mt-3">
+            <div class="card">
+                <h3>📡 Nenhuma estação espacial encontrada</h3>
+                <p>Comece criando sua primeira estação espacial!</p>
+                <a href="/estacoes/new" class="btn btn-success">➕ Criar Primeira Estação</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

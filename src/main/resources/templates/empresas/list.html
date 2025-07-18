@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="d-flex justify-center" style="justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>🏢 Empresas</h1>
+            <a href="/empresas/new" class="btn btn-success">➕ Nova Empresa</a>
+        </div>
+        
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>Funcionários</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="empresa : ${empresas}">
+                        <td th:text="${empresa.id}">1</td>
+                        <td th:text="${empresa.name}">Nome</td>
+                        <td th:text="${empresa.cnpj}">CNPJ</td>
+                        <td th:text="${empresa.employees}">Funcionários</td>
+                        <td>
+                            <a th:href="@{/empresas/{id}(id=${empresa.id})}" class="btn btn-primary" style="padding: 0.3rem 0.8rem;">👁️</a>
+                            <a th:href="@{/empresas/{id}/edit(id=${empresa.id})}" class="btn btn-secondary" style="padding: 0.3rem 0.8rem;">✏️</a>
+                            <a th:href="@{/empresas/{id}/delete(id=${empresa.id})}" 
+                               class="btn btn-danger" style="padding: 0.3rem 0.8rem;"
+                               onclick="return confirm('Tem certeza que deseja excluir esta empresa?')">🗑️</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div th:if="${#lists.isEmpty(empresas)}" class="text-center" style="padding: 2rem;">
+                <h3>🏢 Nenhuma empresa encontrada</h3>
+                <p>Comece adicionando a primeira empresa!</p>
+                <a href="/empresas/new" class="btn btn-success">➕ Criar Primeira Empresa</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

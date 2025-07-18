@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Estação Espacial</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="home-background">
+        <div class="home-content">
+            <h1 class="welcome-title">Bem-vindo ao Sistema de Estações Espaciais</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Gerencie e monitore suas estações espaciais em tempo real
+            </p>
+            <a href="/estacoes" class="btn btn-primary btn-lg">
+                Ver Estações Espaciais
+            </a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2 class="text-center mb-3">Equipe de Desenvolvimento</h2>
+        <div class="dev-cards">
+            <div class="card dev-card">
+                <div class="dev-avatar">
+                    👨‍💻
+                </div>
+                <h3>Developer 1</h3>
+                <p>Desenvolvedor Full Stack</p>
+                <a href="https://github.com" class="github-link" target="_blank">
+                    📊 GitHub Profile
+                </a>
+            </div>
+            
+            <div class="card dev-card">
+                <div class="dev-avatar">
+                    👩‍💻
+                </div>
+                <h3>Developer 2</h3>
+                <p>Desenvolvedor Full Stack</p>
+                <a href="https://github.com" class="github-link" target="_blank">
+                    📊 GitHub Profile
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <h3>Acesso Rápido</h3>
+            <div class="d-flex justify-center gap-1" style="flex-wrap: wrap; margin-top: 1rem;">
+                <a href="/estacoes" class="btn btn-primary">🚀 Estações Espaciais</a>
+                <a href="/users" class="btn btn-success">👥 Usuários</a>
+                <a href="/empresas" class="btn btn-secondary">🏢 Empresas</a>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .home-background {
+            background: url('/images/space-station.svg') center/cover no-repeat;
+            min-height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-attachment: fixed;
+        }
+        
+        .home-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</body>
+</html>

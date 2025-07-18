@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${user.id != null ? 'Editar Usuário' : 'Novo Usuário'}">Formulário Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <h1 th:text="${user.id != null ? '✏️ Editar Usuário' : '➕ Novo Usuário'}">Formulário</h1>
+            
+            <form th:action="@{/users}" th:object="${user}" method="post">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" 
+                           placeholder="Digite o nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" 
+                           placeholder="Digite o email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">Gênero:</label>
+                    <select id="gender" th:field="*{gender}" class="form-control" required>
+                        <option value="">Selecione o gênero</option>
+                        <option th:each="genderOption : ${T(br.edu.ifsuldeminas.mch.estacaoespacial.model.User.Gender).values()}"
+                                th:value="${genderOption}"
+                                th:text="${genderOption}">Gênero</option>
+                    </select>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem 0; color: #3498db;">📍 Endereço</h3>
+                
+                <div class="form-group">
+                    <label for="street">Rua:</label>
+                    <input type="text" id="street" th:field="*{address.street}" class="form-control" 
+                           placeholder="Digite a rua e número">
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">Cidade:</label>
+                    <input type="text" id="city" th:field="*{address.city}" class="form-control" 
+                           placeholder="Digite a cidade">
+                </div>
+                
+                <div class="form-group">
+                    <label for="state">Estado:</label>
+                    <input type="text" id="state" th:field="*{address.state}" class="form-control" 
+                           placeholder="Digite o estado">
+                </div>
+                
+                <div class="form-group">
+                    <label for="zipCode">CEP:</label>
+                    <input type="text" id="zipCode" th:field="*{address.zipCode}" class="form-control" 
+                           placeholder="Digite o CEP">
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">País:</label>
+                    <input type="text" id="country" th:field="*{address.country}" class="form-control" 
+                           placeholder="Digite o país" value="Brasil">
+                </div>
+                
+                <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-success">💾 Salvar</button>
+                    <a href="/users" class="btn btn-secondary">↩️ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

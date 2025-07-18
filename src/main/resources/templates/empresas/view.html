@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Empresa: ' + ${empresa.name}">Detalhes da Empresa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <div class="text-center mb-3">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #34495e; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 3rem; color: white;">
+                    🏢
+                </div>
+                <h1 th:text="${empresa.name}">Nome da Empresa</h1>
+            </div>
+            
+            <div>
+                <h3>📋 Informações da Empresa</h3>
+                <p><strong>ID:</strong> <span th:text="${empresa.id}">1</span></p>
+                <p><strong>Nome:</strong> <span th:text="${empresa.name}">Nome</span></p>
+                <p><strong>CNPJ:</strong> <span th:text="${empresa.cnpj}">CNPJ</span></p>
+                <p><strong>Número de Funcionários:</strong> <span th:text="${empresa.employees}">Funcionários</span></p>
+            </div>
+            
+            <!-- Gráfico visual do número de funcionários -->
+            <div style="margin-top: 2rem;">
+                <h3>👥 Representação Visual dos Funcionários</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 5px; max-width: 300px;">
+                    <div th:each="i : ${#numbers.sequence(1, T(java.lang.Math).min(empresa.employees, 100))}" 
+                         style="width: 20px; height: 20px; background-color: #3498db; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white;">
+                        👤
+                    </div>
+                    <div th:if="${empresa.employees > 100}" 
+                         style="padding: 10px; background-color: #2c2c2c; border-radius: 5px; margin-left: 10px;">
+                        <span th:text="'... e mais ' + (${empresa.employees} - 100) + ' funcionários'">... e mais funcionários</span>
+                    </div>
+                </div>
+                <small style="color: #7f8c8d; margin-top: 10px; display: block;">
+                    Mostrando até 100 funcionários visualmente
+                </small>
+            </div>
+            
+            <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
+                <a th:href="@{/empresas/{id}/edit(id=${empresa.id})}" class="btn btn-primary">✏️ Editar</a>
+                <a th:href="@{/empresas/{id}/delete(id=${empresa.id})}" 
+                   class="btn btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir esta empresa?')">🗑️ Excluir</a>
+                <a href="/empresas" class="btn btn-secondary">↩️ Voltar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

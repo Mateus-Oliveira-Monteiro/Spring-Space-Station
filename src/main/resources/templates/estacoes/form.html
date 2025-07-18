@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${estacao.id != null ? 'Editar Estação' : 'Nova Estação'}">Formulário Estação</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <h1 th:text="${estacao.id != null ? '✏️ Editar Estação' : '➕ Nova Estação'}">Formulário</h1>
+            
+            <form th:action="@{/estacoes}" th:object="${estacao}" method="post">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="form-group">
+                    <label for="name">Nome da Estação:</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" 
+                           placeholder="Digite o nome da estação" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oxygen">Nível de Oxigênio (%):</label>
+                    <input type="number" id="oxygen" th:field="*{oxygen}" class="form-control" 
+                           min="0" max="100" step="0.1" placeholder="0.0" required>
+                    <small style="color: #7f8c8d;">Digite um valor entre 0 e 100</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="launch">Data de Lançamento:</label>
+                    <input type="date" id="launch" th:field="*{launch}" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user">Usuário Responsável:</label>
+                    <select id="user" th:field="*{user.id}" class="form-control" required>
+                        <option value="">Selecione um usuário</option>
+                        <option th:each="user : ${users}" 
+                                th:value="${user.id}" 
+                                th:text="${user.name + ' (' + user.email + ')'}">Usuário</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="empresa">Empresa:</label>
+                    <select id="empresa" th:field="*{empresa.id}" class="form-control" required>
+                        <option value="">Selecione uma empresa</option>
+                        <option th:each="empresa : ${empresas}" 
+                                th:value="${empresa.id}" 
+                                th:text="${empresa.name + ' (' + empresa.cnpj + ')'}">Empresa</option>
+                    </select>
+                </div>
+                
+                <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-success">💾 Salvar</button>
+                    <a href="/estacoes" class="btn btn-secondary">↩️ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Atualiza a barra de oxigênio em tempo real
+        document.getElementById('oxygen').addEventListener('input', function() {
+            const value = this.value;
+            const previewBar = document.querySelector('.oxygen-preview');
+            if (previewBar) {
+                previewBar.style.width = value + '%';
+                previewBar.querySelector('.oxygen-text').textContent = value + '%';
+            }
+        });
+        
+        // Cria uma prévia da barra de oxigênio
+        const oxygenInput = document.getElementById('oxygen');
+        const previewDiv = document.createElement('div');
+        previewDiv.innerHTML = `
+            <div class="oxygen-bar" style="margin-top: 0.5rem;">
+                <div class="oxygen-fill oxygen-preview" style="width: ${oxygenInput.value || 0}%">
+                    <div class="oxygen-text">${oxygenInput.value || 0}%</div>
+                </div>
+            </div>
+        `;
+        oxygenInput.parentNode.appendChild(previewDiv);
+    </script>
+</body>
+</html>

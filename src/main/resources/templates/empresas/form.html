@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${empresa.id != null ? 'Editar Empresa' : 'Nova Empresa'}">Formulário Empresa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <h1 th:text="${empresa.id != null ? '✏️ Editar Empresa' : '➕ Nova Empresa'}">Formulário</h1>
+            
+            <form th:action="@{/empresas}" th:object="${empresa}" method="post">
+                <input type="hidden" th:field="*{id}">
+                
+                <div class="form-group">
+                    <label for="name">Nome da Empresa:</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" 
+                           placeholder="Digite o nome da empresa" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cnpj">CNPJ:</label>
+                    <input type="text" id="cnpj" th:field="*{cnpj}" class="form-control" 
+                           placeholder="XX.XXX.XXX/XXXX-XX" required>
+                    <small style="color: #7f8c8d;">Formato: XX.XXX.XXX/XXXX-XX</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="employees">Número de Funcionários:</label>
+                    <input type="number" id="employees" th:field="*{employees}" class="form-control" 
+                           min="1" placeholder="Digite o número de funcionários" required>
+                </div>
+                
+                <div class="d-flex justify-center gap-1" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-success">💾 Salvar</button>
+                    <a href="/empresas" class="btn btn-secondary">↩️ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Máscara para CNPJ
+        document.getElementById('cnpj').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
